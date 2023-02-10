@@ -4,25 +4,24 @@ const Account = require('../models/account.model');
 //send money
 const createTransaction = async (req, res) => {
   try {
-    const { fromAccountId, toAccountId, amount } = req.body;
+    const { fromAccount, toAccount, amount } = req.body;
+  
 
-    const fromAccount = await Account.findById(fromAccountId);
+    const fromAccountid = await Account.findById(fromAccount);
+    console.log(fromAccount);
     if (!fromAccount) return res.status(404).send({ error: 'From account not found' });
-    if (fromAccount.balance < amount) return res.status(400).send({ error: 'Insufficient balance' });
-
-    const toAccount = await Account.findById(toAccountId);
+    if (fromAccountid.balance < amount) return res.status(400).send({ error: 'Insufficient balance' });
+    console.log(fromAccountid.balance);
+    const toAccountid = await Account.findById(toAccount);
     if (!toAccount) return res.status(404).send({ error: 'To account not found' });
 
-    fromAccount.balance -= amount;
-    toAccount.balance += amount;
+    fromAccountid.balance -= amount;
+    toAccountid.balance += amount;
 
-    const transaction = new Transaction({ fromAccount, toAccount, amount });
-    await transaction.save();
+    const transaction =  Transaction.create({ fromAccount, toAccount, amount });
 
-    await fromAccount.save();
-    await toAccount.save();
 
-    res.status(200).json(transaction)
+    res.status(200).json({transaction, msg:'Transfer sent successfully'})
   } catch (error) {
     res.status(400).send(error);
   }
