@@ -21,7 +21,7 @@ const createTransaction = async (req, res) => {
     const transaction =  Transaction.create({ fromAccount, toAccount, amount });
 
 
-    res.status(200).json({transaction, msg:'Transfer sent successfully'})
+    res.status(200).json({msg:'Transfer sent successfully'})
   } catch (error) {
     res.status(400).send(error);
   }
@@ -31,9 +31,7 @@ const createTransaction = async (req, res) => {
 // get all tranfers
 const getTransactions = async (req, res) => {
   try {
-    const transactions = await Transaction.find({
-      $or: [{ fromAccount: req.params.accountId }, { toAccount: req.params.accountId }]
-    }).populate('fromAccount toAccount');
+    const transactions = await Transaction.find().populate('fromAccount');
     res.status(200).json(transactions);
   } catch (error) {
     res.status(400).send(error);
