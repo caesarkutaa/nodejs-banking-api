@@ -52,6 +52,32 @@ const deleteUser = async(req,res)=>{
         res.status(500).json(error)
       }
 }
+//update balance
+const updateBalance = async (req, res) => {
+  try {
+    const account = await User.findByIdAndUpdate( req.params.id,{$set:req.body},
+      {new:true} );
+    if (!account) return res.status(404).send({ error: 'Account not found' });
+
+    res.status(200).json({account, msg:'Update successfuly'});
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+//get account
+const getAccount = async (req, res) => {
+  try {
+    const account = await User.findById( req.params.id );
+    if(!account){
+    res.status(404).send({ error: 'Account not found' });
+  }
+
+    res.status(200).json(account);
+  } catch (error) {
+    res.status(400).send({ error: 'Account not found' });
+  }
+};
 
 
 
@@ -59,5 +85,7 @@ module.exports ={
     signupUser,
     loginUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getAccount,
+    updateBalance
 }

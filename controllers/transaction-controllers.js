@@ -1,5 +1,6 @@
 const Transaction = require('../models/transaction.model');
 const Account = require('../models/account.model');
+const User = require('../models/user.models')
 
 //send money
 const createTransaction = async (req, res) => {
@@ -7,12 +8,12 @@ const createTransaction = async (req, res) => {
     const { fromAccount, toAccount, amount } = req.body;
   
 
-    const fromAccountid = await Account.findById(fromAccount);
+    const fromAccountid = await User.findById(fromAccount);
     console.log(fromAccount);
     if (!fromAccount) return res.status(404).send({ error: 'From account not found' });
     if (fromAccountid.balance < amount) return res.status(400).send({ error: 'Insufficient balance' });
     console.log(fromAccountid.balance);
-    const toAccountid = await Account.findById(toAccount);
+    const toAccountid = await User.findById(toAccount);
     if (!toAccount) return res.status(404).send({ error: 'To account not found' });
 
     fromAccountid.balance -= amount;
