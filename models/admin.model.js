@@ -20,7 +20,7 @@ const AdminSchema = new mongoose.Schema({
         type:Number,
         required: true
     },
-    ID,cardNumber:{
+    IDcardNumber:{
         type:Number,
         required:true
         },

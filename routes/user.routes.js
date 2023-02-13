@@ -10,8 +10,7 @@ router.post('/signup', signupUser)
 router.post('/login', loginUser)
 router.put('/:id', auth, updateUser)
 router.delete('/:id',auth, deleteUser)
-router.get('/:id',auth,getAccount)
-router.put('/updatebal/:id', auth, updateBalance)
+
 
 
 

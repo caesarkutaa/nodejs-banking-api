@@ -2,13 +2,11 @@ const mongoose = require('mongoose');
 
 const transactionSchema = new mongoose.Schema({
   fromAccount: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users',
+    type:String,
     required: true
   },
   toAccount: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users',
+    type:String,
     required: true
   },
   amount: {

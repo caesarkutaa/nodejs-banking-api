@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 
+
 const UserSchema = new mongoose.Schema({
     firstname:{
         type:String,
@@ -42,30 +43,13 @@ const UserSchema = new mongoose.Schema({
           ],
         unique:true 
     },
-    balance: {
-        type: Number,
-        default: 0
-      },
-      AccountNumber: {
-        type: String,
-        minlength: 6,
-        maxlength: 10,
-      },
     isAdmin:{
         type:Boolean,
         default:false
     },
-})
+   
+},{ timestamps: true })
 
- UserSchema.pre('save', async function (next) {
-    const randomInteger = (min, max) => {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-    this.AccountNumber = Math.random()
-      .toString(36)
-      .substr(2, randomInteger(6, 10));
-    next();
-  });
 
 //encrypting password 
 UserSchema.pre('save',async function(next){
