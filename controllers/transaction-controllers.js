@@ -20,7 +20,7 @@ const createTransaction = async(req,res)=>{
     toAccountid.balance += amount;
 
     const transaction =  Transaction.create({ fromAccount, toAccount, amount });
-
+    
 
     res.status(200).json({msg:'Transfer sent successfully'})
   } catch (error) {
