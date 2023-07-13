@@ -1,5 +1,4 @@
-# nodejs-banking-api
-# Bank API
+# Nodejs-banking-api
 
 This is a readme file for the Bank API, which provides a set of endpoints and functionalities for banking operations.
 
